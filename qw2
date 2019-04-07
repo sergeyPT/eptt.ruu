@@ -30,7 +30,7 @@ for _ in range(10):
 
 while True:
 	try:
-		print('Successful:', succ, 'Failed:', unsucc, end='\r')
+		print('Successful:', succ, 'Failed:', unsucc)
 		sleep(1)
 	except KeyboardInterrupt:
 		exit('Exited')
