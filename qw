@@ -1,0 +1,36 @@
+import requests
+import random
+import string
+import threading
+from time import sleep
+succ = 0
+unsucc = 0
+headers = {
+	'Host' : 'www.eptt.ru',
+	'Origin': 'http://www.eptt.ru',
+	'User-Agent' : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.85 Safari/537.36 Vivaldi/2.3.1401.7'
+}
+def flood():
+
+	global succ, unsucc
+
+	while True:
+
+		data = {
+		'submit': 'Like'
+		}
+		r = requests.post('http://www.eptt.ru/ShowPhoto.aspx?photo_id=259', headers=headers, data=data)
+		if r.status_code == 200:
+			succ += 1
+		else:
+			unsucc += 1
+
+for _ in range(10):
+    threading.Thread(target=flood, daemon=True).start()
+
+while True:
+	try:
+		print('Successful:', succ, 'Failed:', unsucc, end='\r')
+		sleep(1)
+	except KeyboardInterrupt:
+		exit('Exited')
